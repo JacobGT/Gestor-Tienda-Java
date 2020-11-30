@@ -5,11 +5,11 @@ public class Tv implements Producto{
     int cantidad;
     boolean existencia;
     int precio;
-    int refreshRate;
+    String refreshRate;
     String resolucion;
     String marca;
     
-    public Tv(String nombre, String resolucion, int refreshRate, String marca){
+    public Tv(String nombre, String resolucion, String refreshRate, String marca){
         this.nombre = nombre;
         this.refreshRate = refreshRate;
         this.resolucion = resolucion;

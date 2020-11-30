@@ -111,7 +111,6 @@ public class VistaTrabajador extends javax.swing.JFrame {
 
         correoBusqueda.setBackground(new java.awt.Color(255, 255, 255));
         correoBusqueda.setForeground(new java.awt.Color(0, 0, 0));
-        correoBusqueda.setText(" ");
         correoBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 correoBusquedaActionPerformed(evt);
@@ -407,21 +406,129 @@ public class VistaTrabajador extends javax.swing.JFrame {
         
         if (compu.isSelected()){
             seleccion = "computadora";
+            String cant = cantidad.getText();
+            String brand = marca.getText();
+            String name = nombre.getText();
+            String infoA = info1.getText();
+            String infoB = info2.getText();
+            String price = precio.getText();
+            Tv tv = new Tv(name, infoB, infoA, brand);
+            tv.precio = Integer.parseInt(price);
+            tv.cantidad = Integer.parseInt(cant); 
+            
+            Connection conn = null;
+
+            try {
+                conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
+                Statement stmt = (Statement) conn.createStatement();
+                String insert = "INSERT INTO gestor_tienda.inventario(tipo, marca, nombre, cantidad, precio, info1, info2) VALUES (?,?,?,?,?,?,?)";
+                PreparedStatement ps = conn.prepareStatement(insert);
+                ps.setString(1, seleccion);
+                ps.setString(2, tv.marca);
+                ps.setString(3, tv.nombre);
+                ps.setString(4, Integer.toString(tv.cantidad));
+                ps.setString(5, Integer.toString(tv.precio));
+                ps.setString(6, tv.refreshRate);
+                ps.setString(7, tv.resolucion);
+                ps.execute();
+                conn.close();
+                JOptionPane.showMessageDialog(null, "Dispositivo agregado exitosamente");
+                cantidad.setText("");
+                marca.setText("");
+                nombre.setText("");
+                info1.setText("");
+                info2.setText("");
+                precio.setText("");
+            } catch (SQLException e){
+                System.err.println(e);
+            }
+            
         } else if (tv.isSelected()){
             seleccion = "TV";
+            String cant = cantidad.getText();
+            String brand = marca.getText();
+            String name = nombre.getText();
+            String infoA = info1.getText();
+            String infoB = info2.getText();
+            String price = precio.getText();
+            Computadora pc = new Computadora(name, infoA, infoB, brand);
+            pc.precio = Integer.parseInt(price);
+            pc.cantidad = Integer.parseInt(cant); 
+            
+            Connection conn = null;
+
+            try {
+                conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
+                Statement stmt = (Statement) conn.createStatement();
+                String insert = "INSERT INTO gestor_tienda.inventario(tipo, marca, nombre, cantidad, precio, info1, info2) VALUES (?,?,?,?,?,?,?)";
+                PreparedStatement ps = conn.prepareStatement(insert);
+                ps.setString(1, seleccion);
+                ps.setString(2, pc.marca);
+                ps.setString(3, pc.nombre);
+                ps.setString(4, Integer.toString(pc.cantidad));
+                ps.setString(5, Integer.toString(pc.precio));
+                ps.setString(6, pc.cpu);
+                ps.setString(7, pc.gpu);
+                ps.execute();
+                conn.close();
+                JOptionPane.showMessageDialog(null, "Dispositivo agregado exitosamente");
+                cantidad.setText("");
+                marca.setText("");
+                nombre.setText("");
+                info1.setText("");
+                info2.setText("");
+                precio.setText("");
+            } catch (SQLException e){
+                System.err.println(e);
+            }
         } else {
             seleccion = "telefono";
+            String cant = cantidad.getText();
+            String brand = marca.getText();
+            String name = nombre.getText();
+            String infoA = info1.getText();
+            String infoB = info2.getText();
+            String price = precio.getText();
+            Telefono tel = new Telefono(name, infoA, infoB, brand);
+            tel.precio = Integer.parseInt(price);
+            tel.cantidad = Integer.parseInt(cant); 
+            
+            Connection conn = null;
+
+            try {
+                conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
+                Statement stmt = (Statement) conn.createStatement();
+                String insert = "INSERT INTO gestor_tienda.inventario(tipo, marca, nombre, cantidad, precio, info1, info2) VALUES (?,?,?,?,?,?,?)";
+                PreparedStatement ps = conn.prepareStatement(insert);
+                ps.setString(1, seleccion);
+                ps.setString(2, tel.marca);
+                ps.setString(3, tel.nombre);
+                ps.setString(4, Integer.toString(tel.cantidad));
+                ps.setString(5, Integer.toString(tel.precio));
+                ps.setString(6, tel.os);
+                ps.setString(7, tel.tamaño);
+                ps.execute();
+                conn.close();
+                JOptionPane.showMessageDialog(null, "Dispositivo agregado exitosamente");
+                cantidad.setText("");
+                marca.setText("");
+                nombre.setText("");
+                info1.setText("");
+                info2.setText("");
+                precio.setText("");
+            } catch (SQLException e){
+                System.err.println(e);
+            }
         }
         
-        String cant = cantidad.getText();
+        /*String cant = cantidad.getText();
         String brand = marca.getText();
         String name = nombre.getText();
         String infoA = info1.getText();
         String infoB = info2.getText();
-        String price = precio.getText();
+        String price = precio.getText();*/
         
-        
-        Connection conn = null;
+        /*Connection conn = null;
 
         try {
             conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
@@ -446,7 +553,7 @@ public class VistaTrabajador extends javax.swing.JFrame {
             precio.setText("");
         } catch (SQLException e){
             System.err.println(e);
-        }
+        }*/
     }//GEN-LAST:event_agregarActionPerformed
 
     private void correoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correoBusquedaActionPerformed
@@ -461,13 +568,15 @@ public class VistaTrabajador extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (confirmacion.isSelected()){
             String email = correoBusqueda.getText();
+            Cliente client = new Cliente(email);
+            
             Connection conn = null;
             try {
                 conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
                 String sql = "SELECT * FROM users WHERE correo = ?";
                 int x = 0;
                 PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setString(1, email);
+                ps.setString(1, client.correo);
                 ps.execute();
                 ResultSet rs = ps.executeQuery();
                 while(rs.next()){
@@ -540,14 +649,18 @@ public class VistaTrabajador extends javax.swing.JFrame {
         String saldoTemp = nuevoSaldo.getText();
         int newSaldo = Integer.parseInt(saldoTemp);
         
+        Cliente client = new Cliente(email);
+        client.saldo = newSaldo;
+        
+        
         Connection conn = null;
         if (confirmacion2.isSelected() && confirmacion.isSelected()){
             String sql = "UPDATE users SET saldo=? WHERE correo=?";
             try {
                 conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
                 PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setInt(1, newSaldo);
-                ps.setString(2, email);
+                ps.setInt(1, client.saldo);
+                ps.setString(2, client.correo);
                 ps.execute();
                 ps.close();
                 ps=null;

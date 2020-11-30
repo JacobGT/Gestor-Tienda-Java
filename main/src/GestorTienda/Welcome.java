@@ -165,14 +165,17 @@ public class Welcome extends javax.swing.JFrame {
         String email = correo.getText();
         String myPass=String.valueOf(password.getPassword());
        
+        Cliente client = new Cliente(email);
+        client.password=myPass;
+        
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
             String sql = "SELECT * FROM users WHERE correo = ? AND password = ?";
             int n = 0;
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, email);
-            ps.setString(2, myPass);
+            ps.setString(1, client.correo);
+            ps.setString(2, client.password);
             ps.execute();
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
@@ -207,6 +210,9 @@ public class Welcome extends javax.swing.JFrame {
         String email = correo.getText();
         String myPass=String.valueOf(password.getPassword());
         
+        Trabajador worker = new Trabajador(email);
+        worker.password = myPass;
+        
         Connection conn = null;
 
         try {
@@ -214,8 +220,8 @@ public class Welcome extends javax.swing.JFrame {
             Statement stmt = (Statement) conn.createStatement();
             String insert = "INSERT INTO gestor_tienda.users(correo, password) VALUES (?,?)";
             PreparedStatement ps = conn.prepareStatement(insert);
-            ps.setString(1, email);
-            ps.setString(2, myPass);
+            ps.setString(1, worker.correo);
+            ps.setString(2, worker.password);
             ps.execute();
             ps.close();
             ps=null;
