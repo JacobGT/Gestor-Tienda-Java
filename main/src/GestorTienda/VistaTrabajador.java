@@ -412,9 +412,9 @@ public class VistaTrabajador extends javax.swing.JFrame {
             String infoA = info1.getText();
             String infoB = info2.getText();
             String price = precio.getText();
-            Tv tv = new Tv(name, infoB, infoA, brand);
-            tv.precio = Integer.parseInt(price);
-            tv.cantidad = Integer.parseInt(cant); 
+            Computadora pc = new Computadora(name, infoA, infoB, brand);
+            pc.precio = Integer.parseInt(price);
+            pc.cantidad = Integer.parseInt(cant); 
             
             Connection conn = null;
 
@@ -424,12 +424,12 @@ public class VistaTrabajador extends javax.swing.JFrame {
                 String insert = "INSERT INTO gestor_tienda.inventario(tipo, marca, nombre, cantidad, precio, info1, info2) VALUES (?,?,?,?,?,?,?)";
                 PreparedStatement ps = conn.prepareStatement(insert);
                 ps.setString(1, seleccion);
-                ps.setString(2, tv.marca);
-                ps.setString(3, tv.nombre);
-                ps.setString(4, Integer.toString(tv.cantidad));
-                ps.setString(5, Integer.toString(tv.precio));
-                ps.setString(6, tv.refreshRate);
-                ps.setString(7, tv.resolucion);
+                ps.setString(2, pc.marca);
+                ps.setString(3, pc.nombre);
+                ps.setString(4, Integer.toString(pc.cantidad));
+                ps.setString(5, Integer.toString(pc.precio));
+                ps.setString(6, pc.cpu);
+                ps.setString(7, pc.gpu);
                 ps.execute();
                 conn.close();
                 JOptionPane.showMessageDialog(null, "Dispositivo agregado exitosamente");
@@ -451,9 +451,9 @@ public class VistaTrabajador extends javax.swing.JFrame {
             String infoA = info1.getText();
             String infoB = info2.getText();
             String price = precio.getText();
-            Computadora pc = new Computadora(name, infoA, infoB, brand);
-            pc.precio = Integer.parseInt(price);
-            pc.cantidad = Integer.parseInt(cant); 
+            Tv tv = new Tv(name, infoB, infoA, brand);
+            tv.precio = Integer.parseInt(price);
+            tv.cantidad = Integer.parseInt(cant); 
             
             Connection conn = null;
 
@@ -463,12 +463,12 @@ public class VistaTrabajador extends javax.swing.JFrame {
                 String insert = "INSERT INTO gestor_tienda.inventario(tipo, marca, nombre, cantidad, precio, info1, info2) VALUES (?,?,?,?,?,?,?)";
                 PreparedStatement ps = conn.prepareStatement(insert);
                 ps.setString(1, seleccion);
-                ps.setString(2, pc.marca);
-                ps.setString(3, pc.nombre);
-                ps.setString(4, Integer.toString(pc.cantidad));
-                ps.setString(5, Integer.toString(pc.precio));
-                ps.setString(6, pc.cpu);
-                ps.setString(7, pc.gpu);
+                ps.setString(2, tv.marca);
+                ps.setString(3, tv.nombre);
+                ps.setString(4, Integer.toString(tv.cantidad));
+                ps.setString(5, Integer.toString(tv.precio));
+                ps.setString(6, tv.refreshRate);
+                ps.setString(7, tv.resolucion);
                 ps.execute();
                 conn.close();
                 JOptionPane.showMessageDialog(null, "Dispositivo agregado exitosamente");

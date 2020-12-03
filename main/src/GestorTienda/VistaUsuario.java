@@ -163,7 +163,7 @@ public class VistaUsuario extends javax.swing.JFrame {
 
         CustomId.setText("User");
 
-        jLabel8.setText("(Haga click en tl item y despues en el boton)");
+        jLabel8.setText("(Haga click en el item )");
 
         jLabel10.setText("Precio: ");
 
@@ -221,7 +221,6 @@ public class VistaUsuario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -259,13 +258,14 @@ public class VistaUsuario extends javax.swing.JFrame {
                                             .addComponent(jLabel11)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(22, 22, 22)
-                                                .addComponent(jLabel1))))))
+                                                .addComponent(jLabel1))
+                                            .addComponent(jLabel8)))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(69, 69, 69)
+                                .addGap(53, 53, 53)
                                 .addComponent(compu)))
                         .addGap(33, 33, 33))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(73, 73, 73)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(jLabel6))
@@ -279,11 +279,12 @@ public class VistaUsuario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(info1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
-                            .addComponent(info2))
+                            .addComponent(info2)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(27, 27, 27)
@@ -374,24 +375,29 @@ public class VistaUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel)Tabla.getModel();
         try {
+            int i = 0;
             int rows = Tabla.getRowCount();
-            for (int i = 0; i<rows; i++){
+            while (i<rows){
                 model.removeRow(i);
             }
         } catch(Exception e) {
             System.out.println(e);
         }
         
+        try {
+            JTableHeader header= Tabla.getTableHeader();
+            TableColumnModel colMod = header.getColumnModel();
+            TableColumn tabCol = colMod.getColumn(3);
+            tabCol.setHeaderValue("CPU");
+            header.repaint();
+
+            tabCol = colMod.getColumn(4);
+            tabCol.setHeaderValue("GPU");
+            header.repaint();
+        } catch (Exception e){
+            System.out.println(e);
+        }
         
-        JTableHeader header= Tabla.getTableHeader();
-        TableColumnModel colMod = header.getColumnModel();
-        TableColumn tabCol = colMod.getColumn(3);
-        tabCol.setHeaderValue("CPU");
-        header.repaint();
-        
-        tabCol = colMod.getColumn(4);
-        tabCol.setHeaderValue("GPU");
-        header.repaint();
         
         Connection conn = null;
         String sql = "SELECT * from inventario WHERE tipo=?";
@@ -417,20 +423,31 @@ public class VistaUsuario extends javax.swing.JFrame {
     private void tvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tvActionPerformed
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel)Tabla.getModel();
-        int rows = Tabla.getRowCount();
-        for (int i = 0; i<rows; i++){
-            model.removeRow(i);
+        try {
+            int i = 0;
+            int rows = Tabla.getRowCount();
+            while (i<rows){
+                model.removeRow(i);
+            }
+        } catch (Exception e){
+            System.out.println(e);
         }
         
-        JTableHeader header= Tabla.getTableHeader();
-        TableColumnModel colMod = header.getColumnModel();
-        TableColumn tabCol = colMod.getColumn(3);
-        tabCol.setHeaderValue("Taza de Refresco");
-        header.repaint();
         
-        tabCol = colMod.getColumn(4);
-        tabCol.setHeaderValue("Resolucion");
-        header.repaint();
+        try {
+            JTableHeader header= Tabla.getTableHeader();
+            TableColumnModel colMod = header.getColumnModel();
+            TableColumn tabCol = colMod.getColumn(3);
+            tabCol.setHeaderValue("Taza de Refresco");
+            header.repaint();
+
+            tabCol = colMod.getColumn(4);
+            tabCol.setHeaderValue("Resolucion");
+            header.repaint();
+        } catch (Exception e){
+            System.out.println(e);
+        }
+        
         
         Connection conn = null;
         String sql = "SELECT * from inventario WHERE tipo=?";
@@ -456,20 +473,29 @@ public class VistaUsuario extends javax.swing.JFrame {
     private void telActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telActionPerformed
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel)Tabla.getModel();
-        int rows = Tabla.getRowCount();
-        for (int i = 0; i<rows; i++){
-            model.removeRow(i);
+        try {
+            int i = 0;
+            int rows = Tabla.getRowCount();
+            while (i<rows){
+                model.removeRow(i);
+            }
+        } catch (Exception e){
+            System.out.println(e);
         }
         
-        JTableHeader header= Tabla.getTableHeader();
-        TableColumnModel colMod = header.getColumnModel();
-        TableColumn tabCol = colMod.getColumn(3);
-        tabCol.setHeaderValue("OS");
-        header.repaint();
-        
-        tabCol = colMod.getColumn(4);
-        tabCol.setHeaderValue("Tamaño");
-        header.repaint();
+        try {
+            JTableHeader header= Tabla.getTableHeader();
+            TableColumnModel colMod = header.getColumnModel();
+            TableColumn tabCol = colMod.getColumn(3);
+            tabCol.setHeaderValue("OS");
+            header.repaint();
+
+            tabCol = colMod.getColumn(4);
+            tabCol.setHeaderValue("Tamaño");
+            header.repaint();
+        } catch (Exception e){
+            System.out.println(e);
+        }
         
         Connection conn = null;
         String sql = "SELECT * from inventario WHERE tipo=?";
